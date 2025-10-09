@@ -7,10 +7,11 @@
       "headings": {
         "about-us": "About Us",
         "project-team": "Project team",
+        "javier-enrique-wong": "Javier Enrique Wong",
         "phanuphat-srisukhawasu-oad": "Phanuphat Srisukhawasu (Oad)",
         "xiaoqi": "Xiaoqi",
-        "javier-enrique-wong": "Javier Enrique Wong",
-        "dylan": "Dylan"
+        "dylan": "Dylan",
+        "chew-yue-yang": "Chew Yue Yang"
       },
       "headingKeywords": {}
     },
@@ -39,7 +40,7 @@
       "src": "DeveloperGuide.md",
       "title": "Developer Guide",
       "headings": {
-        "ab-3-developer-guide": "AB-3 Developer Guide",
+        "noknock-developer-guide": "NOKnock Developer Guide",
         "acknowledgements": "Acknowledgements",
         "setting-up-getting-started": "Setting up, getting started",
         "design": "Design",
@@ -56,7 +57,7 @@
         "appendix-requirements": "Appendix: Requirements",
         "product-scope": "Product scope",
         "user-stories": "User stories",
-        "use-cases": "Use cases",
+        "use-cases": "Use Cases",
         "non-functional-requirements": "Non-Functional Requirements",
         "glossary": "Glossary",
         "appendix-instructions-for-manual-testing": "Appendix: Instructions for manual testing",
@@ -128,15 +129,23 @@
     },
     {
       "src": "index.md",
-      "title": "",
+      "title": "NOKnock",
       "headings": {
-        "addressbook-level-3": "AddressBook Level-3"
+        "noknock": "NOKnock"
       },
       "headingKeywords": {}
     },
     {
       "src": "team/butanol.md",
-      "title": "Phanuphat (Oad) Srisukhawasu's Project Portfolio Page",
+      "title": "Dylan's Project Portfolio Page",
+      "headings": {
+        "project-noknock": "Project: NOKnock"
+      },
+      "headingKeywords": {}
+    },
+    {
+      "src": "team/chewy03.md",
+      "title": "Yue Yang's Project Portfolio Page",
       "headings": {
         "project-noknock": "Project: NOKnock"
       },
@@ -144,23 +153,23 @@
     },
     {
       "src": "team/jav65.md",
-      "title": "Javier's Project Portfolio Page",
+      "title": "Javier Enrique Wong's Project Portfolio Page",
       "headings": {
         "project-noknock": "Project: NOKnock"
       },
       "headingKeywords": {}
     },
     {
-      "src": "team/johndoe.md",
-      "title": "John Doe's Project Portfolio Page",
+      "src": "team/oadultradeepfield.md",
+      "title": "Phanuphat (Oad) Srisukhawasu's Project Portfolio Page",
       "headings": {
-        "project-addressbook-level-3": "Project: AddressBook Level 3"
+        "project-noknock": "Project: NOKnock"
       },
       "headingKeywords": {}
     },
     {
-      "src": "team/oadultradeepfield.md",
-      "title": "Phanuphat (Oad) Srisukhawasu's Project Portfolio Page",
+      "src": "team/xiaoqi01010.md",
+      "title": "Xiaoqi's Project Portfolio Page",
       "headings": {
         "project-noknock": "Project: NOKnock"
       },

@@ -8,6 +8,7 @@ import seedu.noknock.model.Model;
 import seedu.noknock.model.person.NextOfKin;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static java.util.Objects.requireNonNull;
 
@@ -37,7 +38,10 @@ public class DeleteNextOfKinCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        List<NextOfKin> lastShownList = model.getFilteredPersonList();
+        List<NextOfKin> lastShownList = model.getFilteredPersonList().stream()
+                .filter(p -> p instanceof NextOfKin)
+                .map(p -> (NextOfKin) p)
+                .collect(Collectors.toList());
 
         int zeroBasedIndex = targetIndex.getZeroBased();
         if (zeroBasedIndex >= lastShownList.size() || zeroBasedIndex < 0) {

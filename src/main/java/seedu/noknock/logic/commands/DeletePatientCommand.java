@@ -8,6 +8,7 @@ import seedu.noknock.model.Model;
 import seedu.noknock.model.person.Patient;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static java.util.Objects.requireNonNull;
 
@@ -36,7 +37,10 @@ public class DeletePatientCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        List<Patient> lastShownList = model.getFilteredPersonList();
+        List<Patient> lastShownList = model.getFilteredPersonList().stream()
+                .filter(p -> p instanceof Patient)
+                .map(p -> (Patient) p)
+                .collect(Collectors.toList());
 
         int zeroBasedIndex = targetIndex.getZeroBased();
         if (zeroBasedIndex >= lastShownList.size() || zeroBasedIndex < 0) {

@@ -25,7 +25,6 @@ public class DeletePatientCommand extends Command {
 
     public static final String MESSAGE_DELETE_PATIENT_SUCCESS = "Deleted Patient: %1$s";
     public static final String MESSAGE_INVALID_PATIENT_INDEX = "Invalid patient index. Please use a number from the patient list.";
-    public static final String MESSAGE_PATIENT_INDEX_OUT_OF_RANGE = "Patient index %d is out of range.";
     public static final String MESSAGE_PATIENT_NOT_FOUND = "Patient not found at index %d";
 
     private final Index targetIndex;
@@ -40,8 +39,8 @@ public class DeletePatientCommand extends Command {
         List<Patient> lastShownList = model.getFilteredPersonList();
 
         int zeroBasedIndex = targetIndex.getZeroBased();
-        if (zeroBasedIndex >= lastShownList.size()) {
-            throw new CommandException(String.format(MESSAGE_PATIENT_INDEX_OUT_OF_RANGE, targetIndex.getOneBased()));
+        if (zeroBasedIndex >= lastShownList.size() || zeroBasedIndex < 0) {
+            throw new CommandException(MESSAGE_INVALID_PATIENT_INDEX);
         }
 
         Patient patientToDelete = lastShownList.get(zeroBasedIndex);

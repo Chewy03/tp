@@ -8,12 +8,12 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import seedu.noknock.commons.core.LogsCenter;
-import seedu.noknock.logic.commands.AddCommand;
 import seedu.noknock.logic.commands.AddPatientCommand;
 import seedu.noknock.logic.commands.ClearCommand;
 import seedu.noknock.logic.commands.Command;
 import seedu.noknock.logic.commands.DeleteCommand;
 import seedu.noknock.logic.commands.DeletePatientCommand;
+import seedu.noknock.logic.commands.DeleteNextOfKinCommand;
 import seedu.noknock.logic.commands.EditCommand;
 import seedu.noknock.logic.commands.ExitCommand;
 import seedu.noknock.logic.commands.FindCommand;
@@ -56,8 +56,6 @@ public class AddressBookParser {
         logger.fine("Command word: " + commandWord + "; Arguments: " + arguments);
 
         switch (commandWord) {
-        case AddCommand.COMMAND_WORD:
-            return new AddCommandParser().parse(arguments);
 
         case AddPatientCommand.COMMAND_WORD:
             return new AddPatientCommandParser().parse(arguments);
@@ -70,6 +68,9 @@ public class AddressBookParser {
 
         case DeletePatientCommand.COMMAND_WORD:
             return new DeletePatientCommandParser().parse(arguments);
+            
+        case DeleteNextOfKinCommand.COMMAND_WORD:
+            return new DeleteNextOfKinCommandParser().parse(arguments);
 
         case ClearCommand.COMMAND_WORD:
             return new ClearCommand();

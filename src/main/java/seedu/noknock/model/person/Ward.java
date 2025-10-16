@@ -27,6 +27,17 @@ public class Ward {
         return ward.matches(REGEX_PATTERN);
     }
     public String toString() {
-        return "Ward " + room;
+        return room;
+    }
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+        if (!(other instanceof Ward)) {
+            return false;
+        }
+        Ward otherWard = (Ward) other;
+        return room.equals(otherWard.getRoom());
     }
 }

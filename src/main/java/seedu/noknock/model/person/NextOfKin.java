@@ -21,12 +21,14 @@ public final class NextOfKin extends Person {
         this.relationship = relationship;
         this.phone = phone;
     }
+
     public Relationship getRelationship() {
         return relationship;
     }
     public Phone getPhone() {
         return phone;
     }
+
     /**
      * Returns true if both persons have the same name.
      * This defines a weaker notion of equality between two persons.

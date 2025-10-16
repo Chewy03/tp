@@ -20,6 +20,7 @@ public final class Patient extends Person {
     private final Ward ward;
     private final List<Person> nextOfKinList = new ArrayList<>();
     private final Set<Tag> tags = new HashSet<>();
+    private final List<CaringSession> caringSessionsList = new ArrayList<>();
 
     /**
      * @param name
@@ -54,6 +55,7 @@ public final class Patient extends Person {
     public void addNextOfKin(Person person) {
         nextOfKinList.add(person);
     }
+    public List<CaringSession> getCaringSessions() { return caringSessionsList; }
 
     /**
      * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
@@ -80,6 +82,24 @@ public final class Patient extends Person {
         }
         Patient otherPatient = (Patient) otherPerson;
         return otherPatient.getName().equals(getName());
+    }
+
+
+    public void addCaringSession(CaringSession session) {
+        caringSessionsList.add(session);
+    }
+
+    public void removeCaringSession(CaringSession session) {
+        caringSessionsList.remove(session);
+    }
+
+
+    /**
+     * Checks if the given session overlaps with an existing one.
+     * Overlap = same date, time, and care type.
+     */
+    public boolean hasOverlappingSession(CaringSession newSession) {
+        return caringSessionsList.stream().anyMatch(existing -> existing.overlaps(newSession));
     }
 
     /**

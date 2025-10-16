@@ -126,10 +126,7 @@ public class CaringSession {
     @Override
     public String toString() {
         return String.format("%s on %s at %s%s",
-                careType,
-                date,
-                time,
-                (notes == null || notes.isEmpty()) ? "" : " (" + notes + ")" );
+                careType, date, time, (notes == null || notes.isEmpty()) ? "" : " (" + notes + ")" );
     }
 
     @Override

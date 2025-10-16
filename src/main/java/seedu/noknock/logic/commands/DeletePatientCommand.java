@@ -1,5 +1,9 @@
 package seedu.noknock.logic.commands;
 
+import static java.util.Objects.requireNonNull;
+
+import java.util.List;
+
 import seedu.noknock.commons.core.index.Index;
 import seedu.noknock.commons.util.ToStringBuilder;
 import seedu.noknock.logic.Messages;
@@ -7,10 +11,6 @@ import seedu.noknock.logic.commands.exceptions.CommandException;
 import seedu.noknock.model.Model;
 import seedu.noknock.model.person.Patient;
 
-import java.util.List;
-import java.util.stream.Collectors;
-
-import static java.util.Objects.requireNonNull;
 
 /**
  * Deletes a person identified using it's displayed index from the address book.
@@ -25,7 +25,8 @@ public class DeletePatientCommand extends Command {
             + "Example: " + COMMAND_WORD + " 1";
 
     public static final String MESSAGE_DELETE_PATIENT_SUCCESS = "Deleted Patient: %1$s";
-    public static final String MESSAGE_INVALID_PATIENT_INDEX = "Invalid patient index. Please use a number from the patient list.";
+    public static final String MESSAGE_INVALID_PATIENT_INDEX =
+        "Invalid patient index. Please use a number from the patient list.";
     public static final String MESSAGE_PATIENT_NOT_FOUND = "Patient not found at index %d";
 
     private final Index targetIndex;
@@ -37,10 +38,7 @@ public class DeletePatientCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        List<Patient> lastShownList = model.getFilteredPersonList().stream()
-                .filter(p -> p instanceof Patient)
-                .map(p -> (Patient) p)
-                .collect(Collectors.toList());
+        List<Patient> lastShownList = model.getFilteredPersonList();
 
         int zeroBasedIndex = targetIndex.getZeroBased();
         if (zeroBasedIndex >= lastShownList.size() || zeroBasedIndex < 0) {
@@ -63,11 +61,10 @@ public class DeletePatientCommand extends Command {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof DeletePatientCommand)) {
+        if (!(other instanceof DeletePatientCommand otherDeleteCommand)) {
             return false;
         }
 
-        DeletePatientCommand otherDeleteCommand = (DeletePatientCommand) other;
         return targetIndex.equals(otherDeleteCommand.targetIndex);
     }
 

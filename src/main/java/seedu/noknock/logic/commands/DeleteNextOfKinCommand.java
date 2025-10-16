@@ -1,16 +1,15 @@
 package seedu.noknock.logic.commands;
 
+import static java.util.Objects.requireNonNull;
+
+import java.util.List;
+
 import seedu.noknock.commons.core.index.Index;
 import seedu.noknock.commons.util.ToStringBuilder;
 import seedu.noknock.logic.Messages;
 import seedu.noknock.logic.commands.exceptions.CommandException;
 import seedu.noknock.model.Model;
 import seedu.noknock.model.person.NextOfKin;
-
-import java.util.List;
-import java.util.stream.Collectors;
-
-import static java.util.Objects.requireNonNull;
 
 /**
  * Deletes a person identified using it's displayed index from the address book.
@@ -41,7 +40,7 @@ public class DeleteNextOfKinCommand extends Command {
         List<NextOfKin> lastShownList = model.getFilteredPersonList().stream()
                 .filter(p -> p instanceof NextOfKin)
                 .map(p -> (NextOfKin) p)
-                .collect(Collectors.toList());
+                .toList();
 
         int zeroBasedIndex = targetIndex.getZeroBased();
         if (zeroBasedIndex >= lastShownList.size() || zeroBasedIndex < 0) {
@@ -64,11 +63,10 @@ public class DeleteNextOfKinCommand extends Command {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof DeleteNextOfKinCommand)) {
+        if (!(other instanceof DeleteNextOfKinCommand otherDeleteCommand)) {
             return false;
         }
 
-        DeleteNextOfKinCommand otherDeleteCommand = (DeleteNextOfKinCommand) other;
         return targetIndex.equals(otherDeleteCommand.targetIndex);
     }
 

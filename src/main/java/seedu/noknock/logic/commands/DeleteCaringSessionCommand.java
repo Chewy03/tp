@@ -28,6 +28,9 @@ public class DeleteCaringSessionCommand extends Command {
     private final Index patientIndex;
     private final Index sessionIndex;
 
+    /**
+     * Creates a DeleteCaringSessionCommand to delete the specified {@code CaringSession}
+     */
     public DeleteCaringSessionCommand(Index patientIndex, Index sessionIndex) {
         this.patientIndex = patientIndex;
         this.sessionIndex = sessionIndex;
@@ -59,8 +62,12 @@ public class DeleteCaringSessionCommand extends Command {
 
     @Override
     public boolean equals(Object other) {
-        if (other == this) return true;
-        if (!(other instanceof DeleteCaringSessionCommand)) return false;
+        if (other == this) {
+            return true;
+        }
+        if (!(other instanceof DeleteCaringSessionCommand)) {
+            return false;
+        }
         DeleteCaringSessionCommand o = (DeleteCaringSessionCommand) other;
         return patientIndex.equals(o.patientIndex)
                 && sessionIndex.equals(o.sessionIndex);

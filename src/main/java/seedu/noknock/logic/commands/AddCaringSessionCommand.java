@@ -2,12 +2,10 @@ package seedu.noknock.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
+
 import java.util.List;
 
 import seedu.noknock.commons.core.index.Index;
-import seedu.noknock.logic.Messages;
 import seedu.noknock.logic.commands.exceptions.CommandException;
 import seedu.noknock.model.Model;
 import seedu.noknock.model.person.CaringSession;
@@ -29,6 +27,9 @@ public class AddCaringSessionCommand extends Command {
     private final Index patientIndex;
     private final CaringSession session;
 
+    /**
+     * Creates an AddCaringSessionCommand to add the specified {@code CaringSession}
+     */
     public AddCaringSessionCommand(Index patientIndex, CaringSession session) {
         this.patientIndex = patientIndex;
         this.session = session;

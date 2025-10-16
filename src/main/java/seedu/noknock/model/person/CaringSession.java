@@ -57,6 +57,15 @@ public class CaringSession {
         return notes;
     }
 
+    /**
+     * Checks if this caring session overlaps with another session.
+     * <p>
+     * Two sessions are considered overlapping if they have the same date,
+     * the same time, and the same care type (case-insensitive).
+     *
+     * @param other the other CaringSession to compare with
+     * @return true if the sessions overlap, false otherwise
+     */
     public boolean overlaps(CaringSession other) {
         return this.date.equals(other.date)
                 && this.time.equals(other.time)
@@ -120,7 +129,7 @@ public class CaringSession {
                 careType,
                 date,
                 time,
-                (notes == null || notes.isEmpty()) ? "" : " (" + notes + ")");
+                (notes == null || notes.isEmpty()) ? "" : " (" + notes + ")" );
     }
 
     @Override

@@ -196,7 +196,7 @@ public class ParserUtil {
                 date = LocalDate.parse(trimmed, formatter);
                 break;
             } catch (DateTimeParseException e) {
-
+                // Try next format
             }
         }
 
@@ -224,16 +224,16 @@ public class ParserUtil {
         String trimmed = timeStr.trim().toLowerCase(Locale.ROOT);
 
         DateTimeFormatter[] formatters = {
-                DateTimeFormatter.ofPattern("H:mm"),        // 24-hour
-                DateTimeFormatter.ofPattern("h:mma"),       // 12-hour with AM/PM, e.g., 2:30pm
-                DateTimeFormatter.ofPattern("h:mm a")       // 12-hour with AM/PM space, e.g., 2:30 pm
+                DateTimeFormatter.ofPattern("H:mm"),
+                DateTimeFormatter.ofPattern("h:mma"),
+                DateTimeFormatter.ofPattern("h:mm a")
         };
 
         for (DateTimeFormatter formatter : formatters) {
             try {
                 return LocalTime.parse(trimmed, formatter);
             } catch (DateTimeParseException e) {
-
+                // Try next format
             }
         }
 

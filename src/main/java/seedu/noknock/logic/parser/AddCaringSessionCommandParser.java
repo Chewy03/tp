@@ -2,8 +2,8 @@ package seedu.noknock.logic.parser;
 
 import static seedu.noknock.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.noknock.logic.parser.CliSyntax.PREFIX_DATE;
-import static seedu.noknock.logic.parser.CliSyntax.PREFIX_TIME;
 import static seedu.noknock.logic.parser.CliSyntax.PREFIX_NOTE;
+import static seedu.noknock.logic.parser.CliSyntax.PREFIX_TIME;
 import static seedu.noknock.logic.parser.CliSyntax.PREFIX_TYPE;
 
 import java.time.LocalDate;

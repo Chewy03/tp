@@ -32,7 +32,7 @@ public class AddNextOfKinCommandParser implements Parser<AddNextOfKinCommand> {
      * Parses the given {@code String} of arguments in the context of the AddNextOfKinCommand
      * and returns an AddNextOfKinCommand object for execution.
      *
-     * @throws ParseException if the user input does not conform the expected format
+     * @throws ParseException if the user input does not conform the expected formatPerson
      */
     public AddNextOfKinCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =

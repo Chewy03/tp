@@ -1,61 +1,87 @@
 package seedu.noknock.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.noknock.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import seedu.noknock.commons.core.index.Index;
+import seedu.noknock.logic.Messages;
 import seedu.noknock.logic.commands.exceptions.CommandException;
 import seedu.noknock.model.Model;
-import seedu.noknock.model.person.CaringSession;
 import seedu.noknock.model.person.Patient;
+import seedu.noknock.model.session.CaringSession;
 
 /**
- * Adds a caring session for a patient identified by their index.
+ * Adds a caring session to an existing patient.
  */
 public class AddCaringSessionCommand extends Command {
 
     public static final String COMMAND_WORD = "add-session";
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a caring session for a patient.\n"
-            + "Parameters: PATIENT_INDEX d/DATE t/TIME type/CARE_TYPE [notes/NOTES]\n"
-            + "Example: " + COMMAND_WORD + " 1 d/2025-10-16 t/14:30 type/medication notes/Give insulin shot";
-    public static final String MESSAGE_SUCCESS = "Caring session added for %1$s: %2$s on %3$s at %4$s (%5$s)";
-    public static final String MESSAGE_INVALID_PATIENT_INDEX = "Patient index %d is out of range.";
-    public static final String MESSAGE_DUPLICATE_SESSION = "Duplicate caring session: same date, time, and care type.";
+
+    public static final String MESSAGE_USAGE = COMMAND_WORD
+        + ": Adds a caring session to the patient identified by the patient index.\n"
+        + "Parameters: PATIENT_INDEX (must be a positive integer) "
+        + "d/DATE t/TIME type/CARE_TYPE [notes/NOTES]\n"
+        + "Example: " + COMMAND_WORD + " 1 "
+        + "d/2025-10-16 t/14:30 type/medication notes/Give insulin shot";
+
+    public static final String MESSAGE_ADD_SESSION_SUCCESS = "Added CaringSession: %1$s to Patient: %2$s";
+    public static final String MESSAGE_DUPLICATE_SESSION = "This caring session already exists for this patient";
 
     private final Index patientIndex;
-    private final CaringSession session;
+    private final CaringSession sessionToAdd;
 
     /**
-     * Creates an AddCaringSessionCommand to add the specified {@code CaringSession}
+     * Creates an AddCaringSessionCommand to add the specified caring session to a patient.
+     *
+     * @param patientIndex Index of the patient in the filtered patient list.
+     * @param sessionToAdd The caring session to add.
      */
-    public AddCaringSessionCommand(Index patientIndex, CaringSession session) {
+    public AddCaringSessionCommand(Index patientIndex, CaringSession sessionToAdd) {
+        requireNonNull(patientIndex);
+        requireNonNull(sessionToAdd);
         this.patientIndex = patientIndex;
-        this.session = session;
+        this.sessionToAdd = sessionToAdd;
     }
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        List<Patient> lastShownList = model.getFilteredPersonList();
+        List<Patient> patientList = model.getFilteredPersonList();
 
-        if (patientIndex.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(String.format(MESSAGE_INVALID_PATIENT_INDEX, patientIndex.getOneBased()));
+        if (patientIndex.getZeroBased() >= patientList.size()) {
+            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
 
-        Patient patient = lastShownList.get(patientIndex.getZeroBased());
+        Patient patient = patientList.get(patientIndex.getZeroBased());
+        List<CaringSession> sessionList = patient.getCaringSessionList();
 
-        if (patient.hasOverlappingSession(session)) {
+        if (patient.hasOverlappingSession(sessionToAdd)) {
             throw new CommandException(MESSAGE_DUPLICATE_SESSION);
         }
 
-        patient.addCaringSession(session);
+        List<CaringSession> updatedSessionList = new ArrayList<>(sessionList);
+        updatedSessionList.add(sessionToAdd);
 
-        return new CommandResult(String.format(MESSAGE_SUCCESS,
-                patient.getName(),
-                session.getCareType(),
-                session.getDate(),
-                session.getTime(),
-                session.getNotes()));
+        Patient editedPatient = patient.withCaringSessionList(updatedSessionList);
+        model.setPerson(patient, editedPatient);
+        model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+
+        return new CommandResult(String.format(MESSAGE_ADD_SESSION_SUCCESS,
+            Messages.formatSession(sessionToAdd), Messages.formatPerson(patient)));
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+        if (!(other instanceof AddCaringSessionCommand otherAddCommand)) {
+            return false;
+        }
+        return patientIndex.equals(otherAddCommand.patientIndex)
+            && sessionToAdd.equals(otherAddCommand.sessionToAdd);
     }
 }

@@ -14,7 +14,7 @@ import seedu.noknock.model.ReadOnlyAddressBook;
 import seedu.noknock.model.person.Patient;
 
 /**
- * An Immutable AddressBook that is serializable to JSON format.
+ * An Immutable AddressBook that is serializable to JSON formatPerson.
  */
 @JsonRootName(value = "addressbook")
 class JsonSerializableAddressBook {

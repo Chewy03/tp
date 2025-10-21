@@ -34,7 +34,7 @@ public class AddPatientCommandIntegrationTest {
         expectedModel.addPerson(validPerson);
 
         assertCommandSuccess(new AddPatientCommand(validPerson), model,
-                String.format(AddPatientCommand.MESSAGE_SUCCESS, Messages.format(validPerson)),
+                String.format(AddPatientCommand.MESSAGE_SUCCESS, Messages.formatPerson(validPerson)),
                 expectedModel);
     }
 

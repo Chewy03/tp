@@ -15,7 +15,7 @@ import java.util.Locale;
 public class Time {
 
     public static final String MESSAGE_CONSTRAINTS =
-        "Times must be in HH:MM (24-hour) or HH:MMam/pm (12-hour) format";
+        "Times must be in HH:MM (24-hour) or HH:MMam/pm (12-hour) formatPerson";
 
     public final LocalTime value;
 
@@ -47,7 +47,7 @@ public class Time {
 
     /**
      * Parses a time string into a LocalTime object.
-     * Accepts times in the format HH:MM (24-hour) or HH:MMam/pm (12-hour).
+     * Accepts times in the formatPerson HH:MM (24-hour) or HH:MMam/pm (12-hour).
      *
      * @param input The time string to parse.
      * @return A LocalTime object if parsing is successful; null otherwise.

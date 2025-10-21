@@ -9,6 +9,8 @@ import java.util.Set;
 import seedu.noknock.commons.core.index.Index;
 import seedu.noknock.commons.util.StringUtil;
 import seedu.noknock.logic.parser.exceptions.ParseException;
+import seedu.noknock.model.date.Date;
+import seedu.noknock.model.date.Time;
 import seedu.noknock.model.person.Address;
 import seedu.noknock.model.person.Email;
 import seedu.noknock.model.person.IC;
@@ -16,6 +18,8 @@ import seedu.noknock.model.person.Name;
 import seedu.noknock.model.person.Phone;
 import seedu.noknock.model.person.Relationship;
 import seedu.noknock.model.person.Ward;
+import seedu.noknock.model.session.CareType;
+import seedu.noknock.model.session.Note;
 import seedu.noknock.model.tag.Tag;
 
 /**
@@ -183,5 +187,65 @@ public class ParserUtil {
             throw new ParseException(Relationship.MESSAGE_CONSTRAINTS);
         }
         return Relationship.of(trimmedRelationship);
+    }
+
+    /**
+     * Parses a {@code String date} into a {@code Date}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code date} is invalid.
+     */
+    public static Date parseDate(String date) throws ParseException {
+        requireNonNull(date);
+        String trimmedDate = date.trim();
+        if (!Date.isValidDate(trimmedDate)) {
+            throw new ParseException(Date.MESSAGE_CONSTRAINTS);
+        }
+        return new Date(trimmedDate);
+    }
+
+    /**
+     * Parses a {@code String type} into a {@code String}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code type} is invalid.
+     */
+    public static Time parseTime(String time) throws ParseException {
+        requireNonNull(time);
+        String trimmedTime = time.trim();
+        if (!Time.isValidTime(trimmedTime)) {
+            throw new ParseException(Time.MESSAGE_CONSTRAINTS);
+        }
+        return new Time(trimmedTime);
+    }
+
+    /**
+     * Parses a {@code String type} into a {@code String}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code type} is invalid.
+     */
+    public static CareType parseType(String type) throws ParseException {
+        requireNonNull(type);
+        String trimmedType = type.trim();
+        if (trimmedType.isEmpty()) {
+            throw new ParseException("Caring session type cannot be empty.");
+        }
+        return new CareType(trimmedType);
+    }
+
+    /**
+     * Parses a {@code String note} into a {@code String}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code note} is invalid.
+     */
+    public static Note parseNote(String note) throws ParseException {
+        requireNonNull(note);
+        String trimmedNote = note.trim();
+        if (trimmedNote.isEmpty()) {
+            throw new ParseException("Caring session note cannot be empty.");
+        }
+        return new Note(trimmedNote);
     }
 }

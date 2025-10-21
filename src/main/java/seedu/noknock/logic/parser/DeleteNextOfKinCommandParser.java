@@ -15,7 +15,7 @@ public class DeleteNextOfKinCommandParser implements Parser<DeleteNextOfKinComma
      * Parses the given {@code String} of arguments in the context of the DeleteNextOfKinCommand
      * and returns a DeleteNextOfKinCommand object for execution.
      *
-     * @throws ParseException if the user input does not conform to the expected format
+     * @throws ParseException if the user input does not conform to the expected formatPerson
      */
     @Override
     public DeleteNextOfKinCommand parse(String args) throws ParseException {

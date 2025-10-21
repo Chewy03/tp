@@ -14,7 +14,7 @@ import java.time.format.DateTimeParseException;
 public class Date {
 
     public static final String MESSAGE_CONSTRAINTS =
-        "Dates must be in YYYY-MM-DD or DD-MM-YYYY format and must not be in the past";
+        "Dates must be in YYYY-MM-DD or DD-MM-YYYY formatPerson and must not be in the past";
 
     public final LocalDate value;
 
@@ -47,7 +47,7 @@ public class Date {
 
     /**
      * Parses a date string into a LocalDate object.
-     * Accepts dates in the format YYYY-MM-DD or DD-MM-YYYY.
+     * Accepts dates in the formatPerson YYYY-MM-DD or DD-MM-YYYY.
      *
      * @param input The date string to parse.
      * @return A LocalDate object if parsing is successful; null otherwise.

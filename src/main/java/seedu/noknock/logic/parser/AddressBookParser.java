@@ -8,10 +8,12 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import seedu.noknock.commons.core.LogsCenter;
+import seedu.noknock.logic.commands.AddCaringSessionCommand;
 import seedu.noknock.logic.commands.AddNextOfKinCommand;
 import seedu.noknock.logic.commands.AddPatientCommand;
 import seedu.noknock.logic.commands.ClearCommand;
 import seedu.noknock.logic.commands.Command;
+import seedu.noknock.logic.commands.DeleteCaringSessionCommand;
 import seedu.noknock.logic.commands.DeleteCommand;
 import seedu.noknock.logic.commands.DeleteNextOfKinCommand;
 import seedu.noknock.logic.commands.DeletePatientCommand;
@@ -43,7 +45,7 @@ public class AddressBookParser {
      *
      * @param userInput full user input string
      * @return the command based on the user input
-     * @throws ParseException if the user input does not conform the expected format
+     * @throws ParseException if the user input does not conform the expected formatPerson
      */
     public Command parseCommand(String userInput) throws ParseException {
         final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
@@ -60,6 +62,8 @@ public class AddressBookParser {
         logger.fine("Command word: " + commandWord + "; Arguments: " + arguments);
 
         switch (commandWord) {
+        case AddCaringSessionCommand.COMMAND_WORD:
+            return new AddCaringSessionCommandParser().parse(arguments);
 
         case AddPatientCommand.COMMAND_WORD:
             return new AddPatientCommandParser().parse(arguments);
@@ -75,6 +79,9 @@ public class AddressBookParser {
 
         case EditNextOfKinCommand.COMMAND_WORD:
             return new EditNextOfKinCommandParser().parse(arguments);
+
+        case DeleteCaringSessionCommand.COMMAND_WORD:
+            return new DeleteCaringSessionCommandParser().parse(arguments);
 
         case DeleteCommand.COMMAND_WORD:
             return new DeleteCommandParser().parse(arguments);

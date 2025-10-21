@@ -4,14 +4,12 @@ import static seedu.noknock.commons.util.CollectionUtil.requireAllNonNull;
 
 import seedu.noknock.model.date.Date;
 import seedu.noknock.model.date.Time;
-import seedu.noknock.model.person.Patient;
 
 /**
  * Represents a caring session for a patient.
- * Stores the care type, note, date, time, and a reference to the patient.
+ * Stores the care type, note, date, and time of the session.
  */
 public final class CaringSession {
-    private final Patient patient;
     private final CareType careType;
     private final Note note;
     private final Date date;
@@ -20,26 +18,17 @@ public final class CaringSession {
     /**
      * Constructs a CaringSession.
      *
-     * @param patient  the patient receiving care
      * @param careType the type of care provided
      * @param note     additional notes for the session
      * @param date     the date of the session
      * @param time     the time of the session
      */
-    public CaringSession(Patient patient, CareType careType, Note note, Date date, Time time) {
-        requireAllNonNull(patient, careType, note, date, time);
-        this.patient = patient;
+    public CaringSession(CareType careType, Note note, Date date, Time time) {
+        requireAllNonNull(careType, note, date, time);
         this.careType = careType;
         this.note = note;
         this.date = date;
         this.time = time;
-    }
-
-    /**
-     * Returns the patient for this session.
-     */
-    public Patient getPatient() {
-        return patient;
     }
 
     /**
@@ -70,6 +59,19 @@ public final class CaringSession {
         return time;
     }
 
+    /**
+     * Checks if this caring session overlaps with another session.
+     * Overlap is defined as having the same date, time, and care type.
+     *
+     * @param other The other caring session to compare with.
+     * @return True if the sessions overlap, false otherwise.
+     */
+    public boolean overlaps(CaringSession other) {
+        return this.date.equals(other.date)
+            && this.time.equals(other.time)
+            && this.careType.equals(other.careType);
+    }
+
     @Override
     public boolean equals(Object other) {
         if (other == this) {
@@ -78,8 +80,7 @@ public final class CaringSession {
         if (!(other instanceof CaringSession otherSession)) {
             return false;
         }
-        return patient.equals(otherSession.patient)
-            && careType.equals(otherSession.careType)
+        return careType.equals(otherSession.careType)
             && note.equals(otherSession.note)
             && date.equals(otherSession.date)
             && time.equals(otherSession.time);
@@ -87,13 +88,12 @@ public final class CaringSession {
 
     @Override
     public int hashCode() {
-        return java.util.Objects.hash(patient, careType, note, date, time);
+        return java.util.Objects.hash(careType, note, date, time);
     }
 
     @Override
     public String toString() {
         return new seedu.noknock.commons.util.ToStringBuilder(this)
-            .add("patient", patient)
             .add("careType", careType)
             .add("note", note)
             .add("date", date)

@@ -51,7 +51,7 @@ public class DeletePatientCommand extends Command {
         }
 
         model.deletePerson(patientToDelete);
-        return new CommandResult(String.format(MESSAGE_DELETE_PATIENT_SUCCESS, Messages.format(patientToDelete)));
+        return new CommandResult(String.format(MESSAGE_DELETE_PATIENT_SUCCESS, Messages.formatPerson(patientToDelete)));
     }
 
     @Override

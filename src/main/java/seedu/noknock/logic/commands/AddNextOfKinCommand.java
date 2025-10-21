@@ -78,7 +78,7 @@ public class AddNextOfKinCommand extends Command {
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
 
         return new CommandResult(String.format(MESSAGE_ADD_NOK_SUCCESS,
-            Messages.format(nokToAdd), Messages.format(patient)));
+            Messages.formatPerson(nokToAdd), Messages.formatPerson(patient)));
     }
 
     @Override

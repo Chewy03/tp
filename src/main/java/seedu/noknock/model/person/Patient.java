@@ -27,7 +27,6 @@ public final class Patient extends Person {
     private final List<NextOfKin> nextOfKinList = new ArrayList<>();
     private final List<CaringSession> caringSessionList = new ArrayList<>();
     private final Set<Tag> tags = new HashSet<>();
-    private final List<CaringSession> caringSessionsList = new ArrayList<>();
 
     /**
      * Constructs a {@code Patient} with the given name and default ward/IC.
@@ -71,7 +70,6 @@ public final class Patient extends Person {
     public List<CaringSession> getCaringSessionList() {
         return caringSessionList;
     }
-    public List<CaringSession> getCaringSessions() { return caringSessionsList; }
 
     /**
      * Creates a copy of the current patient with an updated next-of-kin list.
@@ -125,22 +123,14 @@ public final class Patient extends Person {
         return otherPatient.getName().equals(getName());
     }
 
-
-    public void addCaringSession(CaringSession session) {
-        caringSessionsList.add(session);
-    }
-
-    public void removeCaringSession(CaringSession session) {
-        caringSessionsList.remove(session);
-    }
-
-
     /**
-     * Checks if the given session overlaps with an existing one.
-     * Overlap = same date, time, and care type.
+     * Checks if the new caring session overlaps with any existing sessions.
+     *
+     * @param newSession The new caring session to check.
+     * @return True if there is an overlap with existing sessions.
      */
     public boolean hasOverlappingSession(CaringSession newSession) {
-        return caringSessionsList.stream().anyMatch(existing -> existing.overlaps(newSession));
+        return caringSessionList.stream().anyMatch(existing -> existing.overlaps(newSession));
     }
 
     /**

@@ -11,22 +11,27 @@ import seedu.noknock.logic.parser.exceptions.ParseException;
  */
 public class DeleteCaringSessionCommandParser implements Parser<DeleteCaringSessionCommand> {
 
+    /**
+     * Parses the given {@code String} of arguments in the context of the DeleteCaringSessionCommand
+     * and returns a DeleteCaringSessionCommand object for execution.
+     *
+     * @throws ParseException if the user input does not conform to the expected format.
+     */
     @Override
     public DeleteCaringSessionCommand parse(String args) throws ParseException {
+        String trimmedArgs = args.trim();
+        String[] splitArgs = trimmedArgs.split("\\s+");
+        if (splitArgs.length != 2) {
+            throw new ParseException(
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCaringSessionCommand.MESSAGE_USAGE));
+        }
         try {
-            String[] parts = args.trim().split("\\s+");
-            if (parts.length != 2) {
-                throw new ParseException(String.format(
-                        MESSAGE_INVALID_COMMAND_FORMAT, DeleteCaringSessionCommand.MESSAGE_USAGE));
-            }
-
-            Index patientIndex = ParserUtil.parseIndex(parts[0]);
-            Index sessionIndex = ParserUtil.parseIndex(parts[1]);
-
+            Index patientIndex = ParserUtil.parseIndex(splitArgs[0]);
+            Index sessionIndex = ParserUtil.parseIndex(splitArgs[1]);
             return new DeleteCaringSessionCommand(patientIndex, sessionIndex);
         } catch (ParseException pe) {
             throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCaringSessionCommand.MESSAGE_USAGE), pe);
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCaringSessionCommand.MESSAGE_USAGE), pe);
         }
     }
 }

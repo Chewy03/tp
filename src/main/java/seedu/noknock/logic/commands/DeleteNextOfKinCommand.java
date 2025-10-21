@@ -27,7 +27,6 @@ public class DeleteNextOfKinCommand extends Command {
         + "Example: " + COMMAND_WORD + " 1 2";
 
     public static final String MESSAGE_DELETE_NOK_SUCCESS = "Deleted NextOfKin: %1$s";
-    public static final String MESSAGE_INVALID_NOK_INDEX = "Invalid next of kin index for patient.";
 
     private final Index patientIndex;
     private final Index nokIndex;
@@ -49,14 +48,14 @@ public class DeleteNextOfKinCommand extends Command {
         List<Patient> patientList = model.getFilteredPersonList();
 
         if (patientIndex.getZeroBased() >= patientList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+            throw new CommandException(Messages.MESSAGE_INVALID_PATIENT_DISPLAYED_INDEX);
         }
 
         Patient patient = patientList.get(patientIndex.getZeroBased());
         List<NextOfKin> nokList = patient.getNextOfKinList();
 
         if (nokIndex.getZeroBased() >= nokList.size() || nokIndex.getZeroBased() < 0) {
-            throw new CommandException(MESSAGE_INVALID_NOK_INDEX);
+            throw new CommandException(Messages.MESSAGE_INVALID_NOK_DISPLAYED_INDEX);
         }
 
         NextOfKin nokToDelete = nokList.get(nokIndex.getZeroBased());

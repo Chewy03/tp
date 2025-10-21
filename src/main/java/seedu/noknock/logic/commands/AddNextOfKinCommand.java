@@ -60,7 +60,7 @@ public class AddNextOfKinCommand extends Command {
         List<Patient> patientList = model.getFilteredPersonList();
 
         if (patientIndex.getZeroBased() >= patientList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+            throw new CommandException(Messages.MESSAGE_INVALID_PATIENT_DISPLAYED_INDEX);
         }
 
         Patient patient = patientList.get(patientIndex.getZeroBased());

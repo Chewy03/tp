@@ -1,7 +1,7 @@
 package seedu.noknock.logic;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static seedu.noknock.logic.Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX;
+import static seedu.noknock.logic.Messages.MESSAGE_INVALID_PATIENT_DISPLAYED_INDEX;
 import static seedu.noknock.logic.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.noknock.logic.commands.CommandTestUtil.IC_DESC_AMY;
 import static seedu.noknock.logic.commands.CommandTestUtil.NAME_DESC_AMY;
@@ -60,7 +60,7 @@ public class LogicManagerTest {
     @Test
     public void execute_commandExecutionError_throwsCommandException() {
         String deleteCommand = "delete 9";
-        assertCommandException(deleteCommand, MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        assertCommandException(deleteCommand, MESSAGE_INVALID_PATIENT_DISPLAYED_INDEX);
     }
 
     @Test

@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import seedu.noknock.commons.core.index.Index;
+import seedu.noknock.logic.Messages;
 import seedu.noknock.logic.commands.exceptions.CommandException;
 import seedu.noknock.model.Model;
 import seedu.noknock.model.person.Patient;
@@ -24,8 +25,6 @@ public class DeleteCaringSessionCommand extends Command {
         + "Example: " + COMMAND_WORD + " 1 2";
 
     public static final String MESSAGE_DELETE_SUCCESS = "Deleted caring session for %1$s: %2$s";
-    public static final String MESSAGE_INVALID_PATIENT_INDEX = "Patient index %d is out of range.";
-    public static final String MESSAGE_INVALID_SESSION_INDEX = "Session index %d is out of range for patient %s.";
 
     private final Index patientIndex;
     private final Index sessionIndex;
@@ -44,15 +43,14 @@ public class DeleteCaringSessionCommand extends Command {
         List<Patient> patientList = model.getFilteredPersonList();
 
         if (patientIndex.getZeroBased() >= patientList.size()) {
-            throw new CommandException(String.format(MESSAGE_INVALID_PATIENT_INDEX, patientIndex.getOneBased()));
+            throw new CommandException(Messages.MESSAGE_INVALID_PATIENT_DISPLAYED_INDEX);
         }
 
         Patient patient = patientList.get(patientIndex.getZeroBased());
         List<CaringSession> sessions = patient.getCaringSessionList();
 
         if (sessionIndex.getZeroBased() >= sessions.size()) {
-            throw new CommandException(String.format(MESSAGE_INVALID_SESSION_INDEX,
-                sessionIndex.getOneBased(), patient.getName()));
+            throw new CommandException(Messages.MESSAGE_INVALID_SESSION_INDEX);
         }
 
         CaringSession sessionToDelete = sessions.get(sessionIndex.getZeroBased());

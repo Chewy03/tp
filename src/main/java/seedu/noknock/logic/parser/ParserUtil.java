@@ -2,13 +2,8 @@ package seedu.noknock.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 import java.util.Collection;
 import java.util.HashSet;
-import java.util.Locale;
 import java.util.Set;
 
 import seedu.noknock.commons.core.index.Index;
@@ -19,6 +14,7 @@ import seedu.noknock.model.person.Email;
 import seedu.noknock.model.person.IC;
 import seedu.noknock.model.person.Name;
 import seedu.noknock.model.person.Phone;
+import seedu.noknock.model.person.Relationship;
 import seedu.noknock.model.person.Ward;
 import seedu.noknock.model.tag.Tag;
 
@@ -61,6 +57,7 @@ public class ParserUtil {
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
      * trimmed.
+     *
      * @throws ParseException if the specified index is invalid (not non-zero unsigned integer).
      */
     public static Index parseIndex(String oneBasedIndex) throws ParseException {
@@ -174,93 +171,17 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String dateStr} into a {@code LocalDate}.
-     * Acceptable formats: YYYY-MM-DD or DD-MM-YYYY.
-     * The date must not be in the past.
+     * Parses a {@code String relationship} into a {@code Relationship}.
+     * Leading and trailing whitespaces will be trimmed.
      *
-     * @param dateStr the string representing the date
-     * @return a LocalDate object representing the parsed date
-     * @throws ParseException if the date is in an invalid format or in the past
+     * @throws ParseException if the given {@code relationship} is invalid.
      */
-    public static LocalDate parseDate(String dateStr) throws ParseException {
-        requireNonNull(dateStr);
-        String trimmed = dateStr.trim();
-        LocalDate date = null;
-        DateTimeFormatter[] formatters = {
-                DateTimeFormatter.ofPattern("yyyy-MM-dd"),
-                DateTimeFormatter.ofPattern("dd-MM-yyyy")
-        };
-
-        for (DateTimeFormatter formatter : formatters) {
-            try {
-                date = LocalDate.parse(trimmed, formatter);
-                break;
-            } catch (DateTimeParseException e) {
-                // Try next format
-            }
+    public static Relationship parseRelationship(String relationship) throws ParseException {
+        requireNonNull(relationship);
+        String trimmedRelationship = relationship.trim();
+        if (!Relationship.isValidRelationship(trimmedRelationship)) {
+            throw new ParseException(Relationship.MESSAGE_CONSTRAINTS);
         }
-
-        if (date == null) {
-            throw new ParseException("Date must be in YYYY-MM-DD or DD-MM-YYYY format and not in the past");
-        }
-
-        if (date.isBefore(LocalDate.now())) {
-            throw new ParseException("Cannot schedule sessions in the past");
-        }
-
-        return date;
+        return Relationship.of(trimmedRelationship);
     }
-
-    /**
-     * Parses a {@code String timeStr} into a {@code LocalTime}.
-     * Acceptable formats: 24-hour HH:MM or 12-hour H:MM[am/pm].
-     *
-     * @param timeStr the string representing the time
-     * @return a LocalTime object representing the parsed time
-     * @throws ParseException if the time is in an invalid format
-     */
-    public static LocalTime parseTime(String timeStr) throws ParseException {
-        requireNonNull(timeStr);
-        String trimmed = timeStr.trim().toLowerCase(Locale.ROOT);
-
-        DateTimeFormatter[] formatters = {
-                DateTimeFormatter.ofPattern("H:mm"),
-                DateTimeFormatter.ofPattern("h:mma"),
-                DateTimeFormatter.ofPattern("h:mm a")
-        };
-
-        for (DateTimeFormatter formatter : formatters) {
-            try {
-                return LocalTime.parse(trimmed, formatter);
-            } catch (DateTimeParseException e) {
-                // Try next format
-            }
-        }
-
-        throw new ParseException("Time must be in HH:MM format or 12-hour format with am/pm");
-    }
-
-    /**
-     * Parses a {@code String typeStr} into a valid care type string.
-     * Must be 1-50 characters long, letters/numbers/spaces/hyphens only, stored in lowercase.
-     *
-     * @param typeStr the string representing the care type
-     * @return a normalized lowercase string representing the care type
-     * @throws ParseException if the typeStr is invalid
-     */
-    public static String parseType(String typeStr) throws ParseException {
-        requireNonNull(typeStr);
-        String trimmed = typeStr.trim();
-
-        if (trimmed.length() < 1 || trimmed.length() > 50) {
-            throw new ParseException("Care type must be 1-50 characters");
-        }
-
-        if (!trimmed.matches("[\\w\\s\\-]+")) {
-            throw new ParseException("Care type can only contain letters, numbers, spaces, and hyphens");
-        }
-
-        return trimmed.toLowerCase(Locale.ROOT);
-    }
-
 }

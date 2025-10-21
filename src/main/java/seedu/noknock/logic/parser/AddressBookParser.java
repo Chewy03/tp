@@ -8,16 +8,19 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import seedu.noknock.commons.core.LogsCenter;
-import seedu.noknock.logic.commands.AddCaringSessionCommand;
+import seedu.noknock.logic.commands.AddNextOfKinCommand;
 import seedu.noknock.logic.commands.AddPatientCommand;
 import seedu.noknock.logic.commands.ClearCommand;
 import seedu.noknock.logic.commands.Command;
-import seedu.noknock.logic.commands.DeleteCaringSessionCommand;
 import seedu.noknock.logic.commands.DeleteCommand;
 import seedu.noknock.logic.commands.DeleteNextOfKinCommand;
+import seedu.noknock.logic.commands.DeletePatientCommand;
 import seedu.noknock.logic.commands.EditCommand;
+import seedu.noknock.logic.commands.EditNextOfKinCommand;
+import seedu.noknock.logic.commands.EditPatientCommand;
 import seedu.noknock.logic.commands.ExitCommand;
 import seedu.noknock.logic.commands.FindCommand;
+import seedu.noknock.logic.commands.FindPatientByNextOfKinCommand;
 import seedu.noknock.logic.commands.FindPatientCommand;
 import seedu.noknock.logic.commands.HelpCommand;
 import seedu.noknock.logic.commands.ListCommand;
@@ -61,17 +64,23 @@ public class AddressBookParser {
         case AddPatientCommand.COMMAND_WORD:
             return new AddPatientCommandParser().parse(arguments);
 
-        case AddCaringSessionCommand.COMMAND_WORD:
-            return new AddCaringSessionCommandParser().parse(arguments);
+        case AddNextOfKinCommand.COMMAND_WORD:
+            return new AddNextOfKinCommandParser().parse(arguments);
 
         case EditCommand.COMMAND_WORD:
             return new EditCommandParser().parse(arguments);
 
+        case EditPatientCommand.COMMAND_WORD:
+            return new EditPatientCommandParser().parse(arguments);
+
+        case EditNextOfKinCommand.COMMAND_WORD:
+            return new EditNextOfKinCommandParser().parse(arguments);
+
         case DeleteCommand.COMMAND_WORD:
             return new DeleteCommandParser().parse(arguments);
 
-        case DeleteCaringSessionCommand.COMMAND_WORD:
-            return new DeleteCaringSessionCommandParser().parse(arguments);
+        case DeletePatientCommand.COMMAND_WORD:
+            return new DeletePatientCommandParser().parse(arguments);
 
         case DeleteNextOfKinCommand.COMMAND_WORD:
             return new DeleteNextOfKinCommandParser().parse(arguments);
@@ -81,6 +90,9 @@ public class AddressBookParser {
 
         case FindCommand.COMMAND_WORD:
             return new FindCommandParser().parse(arguments);
+
+        case FindPatientByNextOfKinCommand.COMMAND_WORD:
+            return new FindPatientByNextOfKinCommandParser().parse(arguments);
 
         case FindPatientCommand.COMMAND_WORD:
             return new FindPatientCommandParser().parse(arguments);

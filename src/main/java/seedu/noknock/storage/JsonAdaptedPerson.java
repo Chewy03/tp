@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -12,6 +11,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import seedu.noknock.commons.exceptions.IllegalValueException;
 import seedu.noknock.model.person.IC;
 import seedu.noknock.model.person.Name;
+import seedu.noknock.model.person.NextOfKin;
 import seedu.noknock.model.person.Patient;
 import seedu.noknock.model.person.Ward;
 import seedu.noknock.model.tag.Tag;
@@ -26,6 +26,7 @@ class JsonAdaptedPerson {
     private final String name;
     private final String ward;
     private final String ic;
+    private final List<JsonAdaptedNextOfKin> nextOfKins = new ArrayList<>();
     private final List<JsonAdaptedTag> tags = new ArrayList<>();
 
     /**
@@ -34,12 +35,16 @@ class JsonAdaptedPerson {
     @JsonCreator
     public JsonAdaptedPerson(@JsonProperty("name") String name, @JsonProperty("ward") String ward,
                              @JsonProperty("ic") String ic,
-                             @JsonProperty("tags") List<JsonAdaptedTag> tags) {
+                             @JsonProperty("tags") List<JsonAdaptedTag> tags,
+                             @JsonProperty("nextOfKins") List<JsonAdaptedNextOfKin> nextOfKins) {
         this.name = name;
         this.ward = ward;
         this.ic = ic;
         if (tags != null) {
             this.tags.addAll(tags);
+        }
+        if (nextOfKins != null) {
+            this.nextOfKins.addAll(nextOfKins);
         }
     }
 
@@ -51,8 +56,11 @@ class JsonAdaptedPerson {
         ic = source.getIC().toString();
         ward = source.getWard().toString();
         tags.addAll(source.getTags().stream()
-                .map(JsonAdaptedTag::new)
-                .collect(Collectors.toList()));
+            .map(JsonAdaptedTag::new)
+            .toList());
+        nextOfKins.addAll(source.getNextOfKinList().stream()
+            .map(JsonAdaptedNextOfKin::new)
+            .toList());
     }
 
     /**
@@ -90,9 +98,13 @@ class JsonAdaptedPerson {
         }
         final IC modelIC = new IC(ic);
 
-
         final Set<Tag> modelTags = new HashSet<>(personTags);
-        return new Patient(modelName, modelWard, modelIC, modelTags);
+
+        final List<NextOfKin> personNextOfKins = new ArrayList<>();
+        for (JsonAdaptedNextOfKin nok : nextOfKins) {
+            personNextOfKins.add(nok.toModelType());
+        }
+        return new Patient(modelName, modelWard, modelIC, modelTags).withNextOfKinList(personNextOfKins);
     }
 
 }

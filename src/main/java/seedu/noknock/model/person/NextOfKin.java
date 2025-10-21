@@ -89,4 +89,8 @@ public final class NextOfKin extends Person {
             .add("relationship", getRelationship())
             .toString();
     }
+
+    public String toDisplayString() {
+        return String.format("%s (%s) - %s", getName(), getRelationship(), getPhone());
+    }
 }
